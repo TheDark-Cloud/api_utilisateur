@@ -66,29 +66,5 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    try:
-        with app.app_context():
-            db.create_all()
-
-            role = ['admin', 'vendeur', 'client', 'restaurateur', 'artisan']
-            for r in role:
-                db.session.add(Role(name_role=r))
-
-            product_types = [
-                "Electronics",
-                "Fashion & Apparel",
-                "Food & Beverages",
-                "Home & Furniture",
-                "Beauty & Personal Care"
-            ]
-            for _ in product_types:
-                db.session.add(Categorie(categorie_name=_))
-
-            db.session.commit()
-            print("Database created successfully")
-            print(app.url_map)
-    except Exception as e:
-        print(e)
-
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 
