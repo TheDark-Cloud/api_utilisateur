@@ -1,0 +1,94 @@
+import os
+from flask import Flask, current_app
+from model_db import Role, Categorie
+from setting.config import db
+
+from blueprints.crud_utilisateur.create_user import create_user_bp
+from blueprints.crud_utilisateur.delete_user import delete_user_bp
+from blueprints.crud_utilisateur.get_user import get_user_bp
+from blueprints.crud_utilisateur.update_user import update_user_bp
+
+from blueprints.crud_complete_account.complete_compte import complete_compte_bp
+from blueprints.crud_log_in.log_in import log_in_bp
+
+from blueprints.crud_product.add_product import add_product_bp
+from blueprints.crud_product.delete_product import delete_product_bp
+from blueprints.crud_product.update_product import update_product_bp
+from blueprints.crud_product.get_product import get_product_bp
+
+from blueprints.crud_shop.add_shop import add_shop_bp
+
+
+from flask_jwt_extended import JWTManager
+from flask_migrate import Migrate
+from dotenv import load_dotenv
+
+
+migrate = Migrate()
+
+
+load_dotenv()
+def create_app():
+    my_app = Flask(__name__)
+    my_app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI_API_UTILISATEUR')
+    my_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
+    my_app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+    my_app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
+    my_app.config["JWT_ALGORITHM"] = os.environ.get('JWT_ALGORITHM')
+    my_app.config["JWT_ALGORITHM_HPW"] = os.environ.get('JWT_ALGORITHM_HPW')
+    my_app.config['JWT_EXP_DELTA_SECONDS'] = int(os.environ.get('JWT_EXP_DELTA_SECONDS'))
+    my_app.config['PORT'] = int(os.environ.get("PORT"))
+
+
+    db.init_app(my_app)
+    jwt = JWTManager(my_app)
+    migrate.init_app(my_app, db)
+
+    # routes user
+    my_app.register_blueprint(create_user_bp)
+    my_app.register_blueprint(delete_user_bp)
+    my_app.register_blueprint(get_user_bp)
+    my_app.register_blueprint(update_user_bp)
+
+    # Complete compte
+    my_app.register_blueprint(complete_compte_bp)
+
+    # routes Shop
+    my_app.register_blueprint(add_shop_bp)
+    # routes product
+    my_app.register_blueprint(add_product_bp)
+    my_app.register_blueprint(get_product_bp)
+
+    # login
+    my_app.register_blueprint(log_in_bp)
+
+    return my_app
+
+if __name__ == '__main__':
+    app = create_app()
+    try:
+        with app.app_context():
+            db.create_all()
+
+            role = ['admin', 'vendeur', 'client', 'restaurateur', 'artisan']
+            for r in role:
+                db.session.add(Role(name_role=r))
+
+            product_types = [
+                "Electronics",
+                "Fashion & Apparel",
+                "Food & Beverages",
+                "Home & Furniture",
+                "Beauty & Personal Care"
+            ]
+            for _ in product_types:
+                db.session.add(Categorie(categorie_name=_))
+
+            db.session.commit()
+            print("Database created successfully")
+            print(app.url_map)
+    except Exception as e:
+        print(e)
+
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
