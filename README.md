@@ -122,7 +122,7 @@ MIGRATIONS
 
 Local :
 flask db init
-flask db migrate -m "initial migration"
+flask db migrate -m "pre deployment migration"
 flask db upgrade
 
 Production Railway :
