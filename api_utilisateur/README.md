@@ -154,9 +154,9 @@ PRODUITS (crud_product)
 ============================================================
 
 POST   /product/add_product
-GET    /product/add_product
-PUT    /product/update_product
-DELETE /product/delete_product
+GET    /product/get_product
+PUT    /
+DELETE /
 
 ============================================================
 SHOPS (crud_shop)
