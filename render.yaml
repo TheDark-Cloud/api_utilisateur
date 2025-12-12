@@ -5,4 +5,4 @@ services:
     buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn app:app"
     envVars:
-      DATABASE_URL: "TO_BE_FILLED"
+      DATABASE_URL: "postgresql://api_service_db_lwwu_user:dSx6H2k31jfM89AUj7rSLoYvOFECOzjJ@dpg-d4toun7pm1nc73cai820-a/api_service_db_lwwu"
