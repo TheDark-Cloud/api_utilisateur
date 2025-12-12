@@ -18,16 +18,14 @@ from blueprints.crud_product.get_product import get_product_bp
 
 from blueprints.crud_shop.add_shop import add_shop_bp
 
-
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 
-
 migrate = Migrate()
 
-
 load_dotenv()
+
 def create_app():
     my_app = Flask(__name__)
     my_app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
@@ -38,7 +36,6 @@ def create_app():
     my_app.config["JWT_ALGORITHM_HPW"] = os.environ.get('JWT_ALGORITHM_HPW')
     my_app.config['JWT_EXP_DELTA_SECONDS'] = int(os.environ.get('JWT_EXP_DELTA_SECONDS'))
     my_app.config['PORT'] = int(os.environ.get("PORT"))
-
 
     db.init_app(my_app)
     jwt = JWTManager(my_app)
@@ -55,6 +52,7 @@ def create_app():
 
     # routes Shop
     my_app.register_blueprint(add_shop_bp)
+
     # routes product
     my_app.register_blueprint(add_product_bp)
     my_app.register_blueprint(get_product_bp)
@@ -62,9 +60,16 @@ def create_app():
     # login
     my_app.register_blueprint(log_in_bp)
 
+    @my_app.route("/run-seed")
+    def run_seed():
+        from seed import seed
+        seed()
+        return "Seed completed"
+
     return my_app
 
-if __name__ == '__main__':
-    app = create_app()
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+# for gunicorn
+app = create_app()
 
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
