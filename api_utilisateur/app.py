@@ -1,6 +1,5 @@
 import os
-from flask import Flask, current_app
-from model_db import Role, Categorie
+from flask import Flask
 from setting.config import db
 
 from blueprints.crud_utilisateur.create_user import create_user_bp

@@ -1,5 +1,5 @@
-from app import create_app
-from model_db import db, Role, Categorie
+from api_utilisateur.app import create_app
+from api_utilisateur.model_db import db, Role, Categorie
 
 def seed():
     app = create_app()
