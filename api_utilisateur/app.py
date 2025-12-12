@@ -82,12 +82,16 @@ def metrics():
         "version": "1.0.0"}, 200
 
 
-@app.route("/seed")
-def seed():
-    from api_utilisateur.seed import seed
-    db.create_all()
-    seed()
-    return "Database seeded", 200
+
+@app.route("/migrate/seed")
+def migrate_seed():
+    from api_utilisateur.seed import seed, run_migrations
+    try:
+        run_migrations()
+        seed()
+        return "Database seeded", 200
+    except Exception as e:
+        return str(e), 500
 
 
 if __name__ == '__main__':
