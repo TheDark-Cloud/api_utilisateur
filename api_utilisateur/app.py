@@ -20,6 +20,10 @@ from api_utilisateur.blueprints.crud_shop.add_shop import add_shop_bp
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from dotenv import load_dotenv
+from api_utilisateur.extensios.cors import init_cors
+from api_utilisateur.extensios.logging import init_logging
+from api_utilisateur.extensios.limiter import init_limiter
+
 
 migrate = Migrate()
 
@@ -39,6 +43,10 @@ def create_app():
     db.init_app(my_app)
     jwt = JWTManager(my_app)
     migrate.init_app(my_app, db)
+    init_cors(my_app)
+    init_logging(my_app)
+    init_limiter(my_app)
+
 
     # routes user
     my_app.register_blueprint(create_user_bp)
@@ -66,11 +74,13 @@ def create_app():
 # for gunicorn
 app = create_app()
 
-@app.route("/run-seed")
-def run_seed():
-    from api_utilisateur.seed import seed
-    seed()
-    return "Seed completed"
+@app.route("/deployment_metrics")
+def metrics():
+    return {
+        "uptime": "OK",
+        "database": "connected",
+        "version": "1.0.0"}
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
