@@ -8,7 +8,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 
 add_product_bp = Blueprint('add_product', __name__)
 
-@add_product_bp.route('/vendeur/add_product', methods=['POST'])
+@add_product_bp.route('/product/add_product', methods=['POST'])
 @jwt_required()
 def add_product():
     """Adding a new product from a vendor in the database """

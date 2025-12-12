@@ -153,11 +153,10 @@ DELETE /
 PRODUITS (crud_product)
 ============================================================
 
-POST   /product/create
-GET    /product/<id>
-GET    /product/all
-PUT    /product/update/<id>
-DELETE /product/delete/<id>
+POST   /product/add_product
+GET    /product/add_product
+PUT    /product/update_product
+DELETE /product/delete_product
 
 ============================================================
 SHOPS (crud_shop)
@@ -166,7 +165,7 @@ SHOPS (crud_shop)
 POST   /vendeur/add_shop
 GET    /
 PUT    /
-DELETE /vendeur/delete_shop
+DELETE /
 
 ============================================================
 COMPLETION DE COMPTE (crud_complete_account)
