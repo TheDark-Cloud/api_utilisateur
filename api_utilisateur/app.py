@@ -2,20 +2,20 @@ import os
 from flask import Flask
 from setting.config import db
 
-from blueprints.crud_utilisateur.create_user import create_user_bp
-from blueprints.crud_utilisateur.delete_user import delete_user_bp
-from blueprints.crud_utilisateur.get_user import get_user_bp
-from blueprints.crud_utilisateur.update_user import update_user_bp
+from api_utilisateur.blueprints.crud_utilisateur.create_user import create_user_bp
+from api_utilisateur.blueprints.crud_utilisateur.delete_user import delete_user_bp
+from api_utilisateur.blueprints.crud_utilisateur.get_user import get_user_bp
+from api_utilisateur.blueprints.crud_utilisateur.update_user import update_user_bp
 
-from blueprints.crud_complete_account.complete_compte import complete_compte_bp
-from blueprints.crud_log_in.log_in import log_in_bp
+from api_utilisateur.blueprints.crud_complete_account.complete_compte import complete_compte_bp
+from api_utilisateur.blueprints.crud_log_in.log_in import log_in_bp
 
-from blueprints.crud_product.add_product import add_product_bp
-from blueprints.crud_product.delete_product import delete_product_bp
-from blueprints.crud_product.update_product import update_product_bp
-from blueprints.crud_product.get_product import get_product_bp
+from api_utilisateur.blueprints.crud_product.add_product import add_product_bp
+from api_utilisateur.blueprints.crud_product.delete_product import delete_product_bp
+from api_utilisateur.blueprints.crud_product.update_product import update_product_bp
+from api_utilisateur.blueprints.crud_product.get_product import get_product_bp
 
-from blueprints.crud_shop.add_shop import add_shop_bp
+from api_utilisateur.blueprints.crud_shop.add_shop import add_shop_bp
 
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
