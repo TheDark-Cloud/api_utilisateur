@@ -60,16 +60,18 @@ def create_app():
     # login
     my_app.register_blueprint(log_in_bp)
 
-    @my_app.route("/run-seed")
-    def run_seed():
-        from seed import seed
-        seed()
-        return "Seed completed"
+
 
     return my_app
 
 # for gunicorn
 app = create_app()
+
+@app.route("/run-seed")
+def run_seed():
+    from seed import seed
+    seed()
+    return "Seed completed"
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
