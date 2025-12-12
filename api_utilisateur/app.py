@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 
 from api_utilisateur.model_db import Role, Categorie
 from api_utilisateur.setting.config import db
