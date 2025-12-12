@@ -1,4 +1,4 @@
-from setting.config import db
+from api_utilisateur.setting.config import db
 from datetime import datetime, timezone
 from base64 import b64encode
 

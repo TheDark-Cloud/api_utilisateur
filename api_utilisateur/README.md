@@ -22,27 +22,28 @@ STRUCTURE DU PROJET
 ------------------------------------------------------------
 
 api_utilisateur/
-    app.py
-    model_db.py
-    requirements.txt
-    Procfile
-    README.mdr
-    migrations/
-    blueprints/
-        crud_admin
-        crud_utilisateur/
-        crud_product/
-        crud_role/
-        crud_shop/
-        crud_log_in/
-        crud_complete_account/
-    setting/
-        __init__.py
-        config.py
-        auth.py
-        tokenize
-    tests/
-    .venv/
+    api_utilisateur
+        app.py
+        model_db.py
+        requirements.txt
+        Procfile
+        README.mdr
+        migrations/
+        blueprints/
+            crud_admin
+            crud_utilisateur/
+            crud_product/
+            crud_role/
+            crud_shop/
+            crud_log_in/
+            crud_complete_account/
+        setting/
+            __init__.py
+            config.py
+            auth.py
+            tokenize
+        tests/
+        .venv/
 
 ------------------------------------------------------------
 CONFIGURATION DE L’APPLICATION
