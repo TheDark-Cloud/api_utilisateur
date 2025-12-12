@@ -1,8 +1,8 @@
 from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 from flask import jsonify, Blueprint, request
-from model_db import Utilisateur
-from setting.auth import authenticate_validator, payload_validator
-from setting.config import db, validate_parameters, hpw
+from api_utilisateur.model_db import Utilisateur
+from api_utilisateur.setting.auth import authenticate_validator, payload_validator
+from api_utilisateur.setting.config import db, validate_parameters
 
 update_user_bp = Blueprint("update_user", __name__)
 

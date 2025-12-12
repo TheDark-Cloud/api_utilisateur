@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
-from setting.config import db, is_valide_phone_format, validate_parameters
-from setting.auth import authenticate_validator, payload_validator
-from model_db import Vendeur, Client, Utilisateur
-from setting.tokenize import tokenize
+from api_utilisateur.setting.config import db, is_valide_phone_format
+from api_utilisateur.setting.auth import authenticate_validator, payload_validator
+from api_utilisateur.model_db import Vendeur, Client, Utilisateur
+from api_utilisateur.setting.tokenize import tokenize
 
 complete_compte_bp = Blueprint("complete_compte", __name__)
 @complete_compte_bp.route("/user/account/vendeur_client/complete", methods=["POST"])

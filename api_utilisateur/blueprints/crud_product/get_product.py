@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 
-from model_db import Product, Categorie
-from setting.auth import authenticate_validator
+from api_utilisateur.model_db import Product, Categorie
+from api_utilisateur.setting.auth import authenticate_validator
 
 get_product_bp = Blueprint("get_product", __name__)
 

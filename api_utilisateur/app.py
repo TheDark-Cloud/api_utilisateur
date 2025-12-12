@@ -35,7 +35,7 @@ def create_app():
     my_app.config["JWT_ALGORITHM"] = os.environ.get('JWT_ALGORITHM')
     my_app.config["JWT_ALGORITHM_HPW"] = os.environ.get('JWT_ALGORITHM_HPW')
     my_app.config['JWT_EXP_DELTA_SECONDS'] = int(os.environ.get('JWT_EXP_DELTA_SECONDS'))
-    my_app.config['PORT'] = int(os.environ.get("PORT"))
+    # my_app.config['PORT'] = int(os.environ.get("PORT"))
 
     db.init_app(my_app)
     jwt = JWTManager(my_app)
@@ -69,7 +69,7 @@ app = create_app()
 
 @app.route("/run-seed")
 def run_seed():
-    from seed import seed
+    from api_utilisateur.seed import seed
     seed()
     return "Seed completed"
 

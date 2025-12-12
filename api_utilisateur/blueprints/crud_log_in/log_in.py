@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify
-from setting.tokenize import tokenize
-from setting.config import is_valid_email_format, is_valid_password_format
+from api_utilisateur.setting.tokenize import tokenize
+from api_utilisateur.setting.config import is_valid_email_format, is_valid_password_format
 from werkzeug.security import check_password_hash
-from model_db import db, Utilisateur, Vendeur, Client, Boutique
-from setting.auth import payload_validator
+from api_utilisateur.model_db import db, Utilisateur, Vendeur, Client, Boutique
+from api_utilisateur.setting.auth import payload_validator
 
 log_in_bp = Blueprint("auth", __name__)
 

@@ -1,8 +1,8 @@
 from flask import jsonify, Blueprint, request
 from flask_jwt_extended import get_jwt, jwt_required, get_jwt_identity
-from setting.config import db
-from model_db import Role, Utilisateur
-from setting.auth import authenticate_validator, payload_validator
+from api_utilisateur.setting.config import db
+from api_utilisateur.model_db import Role, Utilisateur
+from api_utilisateur.setting.auth import authenticate_validator, payload_validator
 
 add_role_bp = Blueprint("Add_role", __name__)
 

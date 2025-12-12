@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify
 
-from setting.auth import payload_validator
-from setting.tokenize import tokenize
-from model_db import Utilisateur, Role
-from setting.config import db, hpw, is_valid_email_format
+from api_utilisateur.setting.auth import payload_validator
+from api_utilisateur.setting.tokenize import tokenize
+from api_utilisateur.model_db import Utilisateur, Role
+from api_utilisateur.setting.config import db, hpw, is_valid_email_format
 
 create_user_bp = Blueprint("create_user", __name__)
 

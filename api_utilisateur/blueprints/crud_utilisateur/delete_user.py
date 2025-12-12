@@ -1,8 +1,8 @@
-from flask import jsonify, request, Blueprint
+from flask import jsonify, Blueprint
 from flask_jwt_extended import get_jwt_identity, get_jwt, jwt_required
-from model_db import Utilisateur
-from setting.config import db
-from setting.auth import authenticate_validator
+from api_utilisateur.model_db import Utilisateur
+from api_utilisateur.setting.config import db
+from api_utilisateur.setting.auth import authenticate_validator
 
 delete_user_bp = Blueprint("delete_user", __name__)
 

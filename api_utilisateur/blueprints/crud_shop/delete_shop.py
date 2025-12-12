@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
-from model_db import Boutique
-from setting.config import db
-from setting.auth import authenticate_validator
+from api_utilisateur.model_db import Boutique
+from api_utilisateur.setting.config import db
+from api_utilisateur.setting.auth import authenticate_validator
 
 
 delete_shop_bp = Blueprint("delete_shop", __name__)

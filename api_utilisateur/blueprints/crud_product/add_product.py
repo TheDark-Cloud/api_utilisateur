@@ -1,9 +1,8 @@
-from email.mime import image
 import base64
 from flask import Blueprint, jsonify, request
-from setting.config import db
-from setting.auth import authenticate_validator, payload_validator
-from model_db import Product, Vendeur, Categorie, Boutique
+from api_utilisateur.setting.config import db
+from api_utilisateur.setting.auth import authenticate_validator, payload_validator
+from api_utilisateur.model_db import Product, Categorie, Boutique
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 
 

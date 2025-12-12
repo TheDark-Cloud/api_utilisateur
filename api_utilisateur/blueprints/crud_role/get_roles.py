@@ -1,7 +1,6 @@
-from flask import Blueprint, jsonify, current_app
-from setting.config import db
-from setting.auth import authenticate_validator, payload_validator
-from model_db import Role, Utilisateur
+from flask import Blueprint, jsonify
+from api_utilisateur.setting.auth import authenticate_validator
+from api_utilisateur.model_db import Role, Utilisateur
 from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 
 get_role_bp = Blueprint("get_role", __name__)

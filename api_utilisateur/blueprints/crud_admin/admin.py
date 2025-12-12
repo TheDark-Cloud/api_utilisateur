@@ -2,8 +2,8 @@ from flask import Blueprint, jsonify, current_app
 from flask_jwt_extended import jwt_required, get_jwt
 from functools import wraps
 from sqlalchemy.exc import SQLAlchemyError
-from model_db import db
-from model_db import Administrateur, Utilisateur, Vendeur
+from api_utilisateur.model_db import db
+from api_utilisateur.model_db import Utilisateur, Vendeur
 
 ADMIN_CLAIM_KEY = "is_admin"
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
