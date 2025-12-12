@@ -79,7 +79,15 @@ def metrics():
     return {
         "uptime": "OK",
         "database": "connected",
-        "version": "1.0.0"}
+        "version": "1.0.0"}, 200
+
+
+@app.route("/seed")
+def seed():
+    from api_utilisateur.seed import seed
+    db.create_all()
+    seed()
+    return "Database seeded", 200
 
 
 if __name__ == '__main__':
