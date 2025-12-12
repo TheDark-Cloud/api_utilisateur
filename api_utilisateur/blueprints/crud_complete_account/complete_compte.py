@@ -6,7 +6,7 @@ from api_utilisateur.model_db import Vendeur, Client, Utilisateur
 from api_utilisateur.setting.tokenize import tokenize
 
 complete_compte_bp = Blueprint("complete_compte", __name__)
-@complete_compte_bp.route("/user/account/vendeur_client/complete", methods=["POST"])
+@complete_compte_bp.route("/complete-account", methods=["POST"])
 @jwt_required()
 def create_compte():
     try:

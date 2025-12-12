@@ -18,7 +18,7 @@ def check_role(role):
         return jsonify({"error": str(err)}), 400
 
 
-@add_role_bp.route("/add_role", methods=["POST"])
+@add_role_bp.route("/role/add_role", methods=["POST"])
 @jwt_required()
 def add_role():
     try:

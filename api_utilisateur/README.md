@@ -1,170 +1,191 @@
-API Utilisateur – Flask + PostgreSQL + Railway
+# API Utilisateur – Flask + PostgreSQL + Render
 
-Cette API est une application Flask modulaire basée sur un pattern Application Factory.  
-Elle gère l’authentification, la gestion des utilisateurs, des produits, des shops et la complétion de compte.  
-Le projet est conçu pour être déployé facilement sur Railway.
+## Description
+API Flask modulaire avec authentification JWT, gestion utilisateurs, produits, shops, complétion de compte, migrations et PostgreSQL. Déployée sur Render avec Gunicorn.
 
-------------------------------------------------------------
-FONCTIONNALITÉS
-------------------------------------------------------------
-
-- Création, suppression, mise à jour et récupération d’utilisateurs
+## Fonctionnalités
 - Authentification JWT
-- Gestion des shops
-- Gestion des produits
+- CRUD Utilisateurs
+- CRUD Produits
+- CRUD Shops
 - Complétion de compte
-- Base de données PostgreSQL
-- Migrations via Flask-Migrate
-- Architecture modulaire avec Blueprints
+- PostgreSQL + SQLAlchemy
+- Migrations Flask-Migrate
+- CORS, Logging, Rate Limiting
+- Routes système (home, metrics, seed)
 
-------------------------------------------------------------
-STRUCTURE DU PROJET
-------------------------------------------------------------
-
+## Structure du projet
 api_utilisateur/
-    api_utilisateur
+    api_utilisateur/
         app.py
         model_db.py
-        requirements.txt
-        Procfile
-        README.mdr
         migrations/
         blueprints/
-            crud_admin
-            crud_utilisateur/
-            crud_product/
-            crud_role/
-            crud_shop/
-            crud_log_in/
-            crud_complete_account/
+        routes/
+            home.py
+            health.py
+            metrics.py
+            seed.py
+        extensions/
+            logging.py
+            cors.py
+            limiter.py
+            swagger.py
         setting/
-            __init__.py
             config.py
             auth.py
-            tokenize
-        tests/
-        .venv/
+        requirements.txt
+        Procfile
 
-------------------------------------------------------------
-CONFIGURATION DE L’APPLICATION
-------------------------------------------------------------
+## Routes système
+GET /              → Homepage  
+GET /health        → Health check  
+GET /metrics       → Monitoring  
+GET /seed          → Seed database (à utiliser une seule fois)
 
-L’application utilise une fonction create_app() pour :
+## Variables d’environnement (Render)
+DATABASE_URL=postgresql://user:password@host:5432/dbname  
+SECRET_KEY=...  
+JWT_SECRET_KEY=...  
+JWT_ALGORITHM=HS256  
+JWT_ALGORITHM_HPW=HS512  
+JWT_EXP_DELTA_SECONDS=3600  
+SQLALCHEMY_TRACK_MODIFICATIONS=False  
 
-- Charger les variables d’environnement
-- Initialiser SQLAlchemy
-- Initialiser JWT
-- Initialiser Flask-Migrate
-- Enregistrer les blueprints
+Render fournit automatiquement : PORT
 
-Le serveur démarre avec :
+## Installation locale
+git clone <repo>  
+cd api_utilisateur  
+python -m venv .venv  
+source .venv/bin/activate  (Linux/Mac)  
+.venv\Scripts\activate     (Windows)  
+pip install -r requirements.txt  
+python app.py  
 
-app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+## Requirements.txt
+Flask  
+Flask-JWT-Extended  
+Flask-Migrate  
+Flask-SQLAlchemy  
+python-dotenv  
+gunicorn  
+psycopg2-binary  
+flask-cors  
+flask-limiter  
+flasgger  
 
-Compatible Railway et local.
+## Procfile (Render)
+web: gunicorn api_utilisateur.app:app
 
-------------------------------------------------------------
-VARIABLES D’ENVIRONNEMENT (RAILWAY)
-------------------------------------------------------------
+## Migrations
+Local :  
+flask db init  
+flask db migrate -m "initial"  
+flask db upgrade  
 
-À ajouter dans Railway → Variables :
+Render (Shell) :  
+flask db upgrade  
 
-SQLALCHEMY_DATABASE_URI_API_UTILISATEUR=postgres://...
-SQLALCHEMY_TRACK_MODIFICATIONS=False
-SECRET_KEY=...
-JWT_SECRET_KEY=...
-JWT_ALGORITHM=HS256
-JWT_ALGORITHM_HPW=HS512
-JWT_EXP_DELTA_SECONDS=...
+## Déploiement Render
+1. Render → New Web Service → Connect GitHub  
+2. Render détecte Python automatiquement  
+3. Ajouter les variables d’environnement  
+4. Déployer  
 
-Railway fournit automatiquement :
-PORT
+## Tests rapides
+GET /  
+GET /health  
+GET /metrics  
+GET /seed  
+POST /login  
+POST /create-user  
+GET /get-product
 
-------------------------------------------------------------
-INSTALLATION LOCALE
-------------------------------------------------------------
+Perfect, Anthony — here is **exactly what you asked for**:
 
-1. Cloner le projet :
-git clone <url-du-repo>
-cd api_utilisateur
+✅ **ALL CRUD ROUTES**  
+✅ **Clean, production‑ready**  
+✅ **Copy‑paste format**  
+✅ **No extra explanations**  
+✅ **Organized by resource**  
+✅ **Matches your modular blueprint structure**
 
-2. Créer un environnement virtuel :
-python -m venv .venv
-source .venv/bin/activate (Linux/Mac)
-.venv\Scripts\activate (Windows)
 
-3. Installer les dépendances :
-pip install -r requirements.txt
+# ROUTES – CRUD LOGIC (UTILISATEURS, PRODUITS, SHOPS, ROLES, AUTH)
 
-4. Lancer l’application :
-python app.py
+============================================================
+AUTHENTIFICATION
+============================================================
 
-------------------------------------------------------------
-REQUIREMENTS.TXT
-------------------------------------------------------------
+POST /user/login
+POST /
+POST /
 
-Flask
-Flask-JWT-Extended
-Flask-Migrate
-Flask-SQLAlchemy
-python-dotenv
-gunicorn
-psycopg2-binary
+============================================================
+UTILISATEURS (crud_utilisateur)
+============================================================
 
-------------------------------------------------------------
-PROCFILE
-------------------------------------------------------------
+POST   /utilisateur/create_user
+GET    /utilisateur/get_user
+PUT    /utilisateur/update_user
+DELETE /utilisateur/delete_user
 
-web: gunicorn "app:create_app()"
+============================================================
+ADMIN (crud_admin)
+============================================================
 
-------------------------------------------------------------
-MIGRATIONS
-------------------------------------------------------------
+GET    /
+GET    /
+PUT    /
+DELETE /
 
-Local :
-flask db init
-flask db migrate -m "pre deployment migration"
-flask db upgrade
+============================================================
+ROLES (crud_role)
+============================================================
 
-Production Railway :
-railway run flask db upgrade
+POST   /role/add_role
+GET    /role/get_role
+PUT    /
+DELETE /
 
-------------------------------------------------------------
-DÉPLOIEMENT SUR RAILWAY
-------------------------------------------------------------
+============================================================
+PRODUITS (crud_product)
+============================================================
 
-1. Railway → New → Deploy Service → GitHub Repo
-2. Railway détecte Python automatiquement
-3. Railway lit requirements.txt et Procfile
-4. Ajouter les variables d’environnement
-5. Déployer
+POST   /product/create
+GET    /product/<id>
+GET    /product/all
+PUT    /product/update/<id>
+DELETE /product/delete/<id>
 
-------------------------------------------------------------
-VÉRIFICATION
-------------------------------------------------------------
+============================================================
+SHOPS (crud_shop)
+============================================================
 
-Railway fournit une URL publique :
-https://<nom-du-service>.up.railway.app
+POST   /vendeur/add_shop
+GET    /
+PUT    /
+DELETE /vendeur/delete_shop
 
-Tester :
-GET /user/get
-POST /user/create
-POST /login
+============================================================
+COMPLETION DE COMPTE (crud_complete_account)
+============================================================
 
-------------------------------------------------------------
-BONNES PRATIQUES
-------------------------------------------------------------
+POST /complete-account
+GET  /
+PUT  /
 
-- Utiliser Gunicorn en production
-- Ne jamais exposer les clés dans GitHub
-- Utiliser les migrations pour la base
-- Garder les blueprints modulaires
-- Ajouter des logs pour la production
+============================================================
+ROUTES SYSTEME
+============================================================
 
-------------------------------------------------------------
-FIN DU README
-------------------------------------------------------------
+To be implemented
 
----
+============================================================
+AUTH HEADERS
+============================================================
 
-Si tu veux, je peux aussi te générer une version **README.md** et une version **README.txt** séparées, ou même un **template pour la documentation API (Swagger/OpenAPI)**.
+Toutes les routes protégées utilisent :
+
+Authorization: Bearer <token>

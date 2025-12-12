@@ -6,7 +6,7 @@ from api_utilisateur.setting.auth import authenticate_validator
 
 delete_user_bp = Blueprint("delete_user", __name__)
 
-@delete_user_bp.route("/delete_user", methods=["DELETE"])
+@delete_user_bp.route("/utilisateur/delete_user", methods=["DELETE"])
 @jwt_required
 def delete_user():
 

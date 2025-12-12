@@ -7,7 +7,7 @@ from api_utilisateur.setting.config import db, hpw, is_valid_email_format
 
 create_user_bp = Blueprint("create_user", __name__)
 
-@create_user_bp.route("/create_user", methods=["POST"])
+@create_user_bp.route("/utilisateur/create_user", methods=["POST"])
 def create_user():
     """
     Creating a user

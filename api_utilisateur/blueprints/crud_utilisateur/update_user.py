@@ -6,7 +6,7 @@ from api_utilisateur.setting.config import db, validate_parameters
 
 update_user_bp = Blueprint("update_user", __name__)
 
-@update_user_bp.route("/update_user", methods=["PUT"])
+@update_user_bp.route("/utilisateur/update_user", methods=["PUT"])
 @jwt_required()
 def update_user():
     """ Updating the user"""

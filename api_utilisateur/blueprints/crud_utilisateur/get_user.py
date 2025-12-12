@@ -5,7 +5,7 @@ from api_utilisateur.setting.auth import authenticate_validator
 
 get_user_bp = Blueprint("get_user", __name__)
 
-@get_user_bp.route("/get_user", methods=["GET"])
+@get_user_bp.route("/utilisateur/get_user", methods=["GET"])
 @jwt_required()
 def get_user():
     try:

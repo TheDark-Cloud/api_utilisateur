@@ -7,7 +7,7 @@ from api_utilisateur.setting.auth import authenticate_validator
 
 delete_shop_bp = Blueprint("delete_shop", __name__)
 
-@delete_shop_bp.route('/delete_shop', methods=['DELETE'])
+@delete_shop_bp.route('/vendeur/delete_shop', methods=['DELETE'])
 @jwt_required()
 def delete_shop():
     """Removes a shop from the database"""
