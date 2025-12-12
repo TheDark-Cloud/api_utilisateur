@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from setting.config import db
+from api_utilisateur.setting.config import db
 
 from api_utilisateur.blueprints.crud_utilisateur.create_user import create_user_bp
 from api_utilisateur.blueprints.crud_utilisateur.delete_user import delete_user_bp
