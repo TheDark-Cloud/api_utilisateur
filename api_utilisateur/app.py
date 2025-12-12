@@ -1,5 +1,7 @@
 import os
-from flask import Flask
+from flask import Flask, request, jsonify
+
+from api_utilisateur.model_db import Role, Categorie
 from api_utilisateur.setting.config import db
 
 from api_utilisateur.blueprints.crud_utilisateur.create_user import create_user_bp
@@ -18,7 +20,7 @@ from api_utilisateur.blueprints.crud_product.get_product import get_product_bp
 from api_utilisateur.blueprints.crud_shop.add_shop import add_shop_bp
 
 from flask_jwt_extended import JWTManager
-from flask_migrate import Migrate
+from flask_migrate import Migrate, upgrade
 from dotenv import load_dotenv
 from api_utilisateur.extensios.cors import init_cors
 from api_utilisateur.extensios.logging import init_logging
@@ -82,16 +84,46 @@ def metrics():
         "version": "1.0.0"}, 200
 
 
+@app.route("/migrate-seed", methods=["POST"])
+def migrate_and_seed():
+    # ✅ Optional protection
+    token = request.headers.get("X-Admin-Token")
+    if token != "YOUR_SECRET_TOKEN":
+        return jsonify({"error": "Unauthorized"}), 401
 
-@app.route("/migrate/seed")
-def migrate_seed():
-    from api_utilisateur.seed import seed, run_migrations
     try:
-        run_migrations()
-        seed()
-        return "Database seeded", 200
+        with app.app_context():
+
+            # ✅ 1. Run migrations
+            upgrade()
+
+            # ✅ 2. Seed roles
+            roles = ['admin', 'vendeur', 'client', 'restaurateur', 'artisan']
+            for r in roles:
+                if not Role.query.filter_by(name_role=r).first():
+                    db.session.add(Role(name_role=r))
+
+            # ✅ 3. Seed categories
+            product_types = [
+                "Electronics",
+                "Fashion & Apparel",
+                "Food & Beverages",
+                "Home & Furniture",
+                "Beauty & Personal Care"
+            ]
+            for c in product_types:
+                if not Categorie.query.filter_by(categorie_name=c).first():
+                    db.session.add(Categorie(categorie_name=c))
+
+            db.session.commit()
+
+            return jsonify({
+                "message": "Migrations and seeding completed successfully"
+            }), 200
+
     except Exception as e:
-        return str(e), 500
+        return jsonify({"error": str(e)}), 500
+
 
 
 if __name__ == '__main__':

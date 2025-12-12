@@ -1,6 +1,3 @@
-from flask import jsonify
-from flask_migrate import upgrade
-
 from api_utilisateur.app import create_app
 from api_utilisateur.model_db import db, Role, Categorie
 
@@ -28,14 +25,6 @@ def seed():
 
         db.session.commit()
         print("Seed completed successfully")
-
-def run_migrations():
-    try:
-        # Run migrations
-        upgrade()
-        return jsonify({"message": "Migrations applied successfully"})
-    except Exception as e:
-        return jsonify({"error": str(e)})
 
 if __name__ == "__main__":
     seed()
