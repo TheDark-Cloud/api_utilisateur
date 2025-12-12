@@ -89,7 +89,7 @@ def migrate_and_seed():
 
     try:
         with app.app_context():
-
+            db.create_all()
             # 1. Run migrations
             upgrade()
 
