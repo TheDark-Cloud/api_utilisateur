@@ -30,7 +30,7 @@ migrate = Migrate()
 load_dotenv()
 def create_app():
     my_app = Flask(__name__)
-    my_app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI_API_UTILISATEUR')
+    my_app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
     my_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
     my_app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     my_app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
