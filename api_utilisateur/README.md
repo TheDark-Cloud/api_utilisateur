@@ -93,47 +93,33 @@ flask db upgrade
 3. Ajouter les variables d’environnement  
 4. Déployer  
 
-## Tests rapides
-GET /  
-GET /health  
-GET /metrics  
-GET /seed  
-POST /login  
-POST /create-user  
-GET /get-product
 
-Perfect, Anthony — here is **exactly what you asked for**:
 
-✅ **ALL CRUD ROUTES**  
-✅ **Clean, production‑ready**  
-✅ **Copy‑paste format**  
-✅ **No extra explanations**  
-✅ **Organized by resource**  
-✅ **Matches your modular blueprint structure**
 
 
 # ROUTES – CRUD LOGIC (UTILISATEURS, PRODUITS, SHOPS, ROLES, AUTH)
 
-============================================================
-AUTHENTIFICATION
-============================================================
+
+## AUTHENTIFICATION
 
 POST /user/login
-POST /
-POST /
 
 ============================================================
-UTILISATEURS (crud_utilisateur)
-============================================================
+
+## UTILISATEURS (crud_utilisateur)
+
 
 POST   /utilisateur/create_user
+
 GET    /utilisateur/get_user
+
 PUT    /utilisateur/update_user
+
 DELETE /utilisateur/delete_user
 
 ============================================================
-ADMIN (crud_admin)
-============================================================
+## ADMIN (crud_admin)
+
 
 GET    /
 GET    /
@@ -141,49 +127,38 @@ PUT    /
 DELETE /
 
 ============================================================
-ROLES (crud_role)
-============================================================
+## ROLES (crud_role)
 
 POST   /role/add_role
+
 GET    /role/get_role
-PUT    /
-DELETE /
+
 
 ============================================================
-PRODUITS (crud_product)
-============================================================
+## PRODUITS (crud_product)
 
 POST   /product/add_product
+
 GET    /product/get_product
-PUT    /
-DELETE /
+
 
 ============================================================
-SHOPS (crud_shop)
-============================================================
+## SHOPS (crud_shop)
 
 POST   /vendeur/add_shop
-GET    /
-PUT    /
-DELETE /
 
 ============================================================
-COMPLETION DE COMPTE (crud_complete_account)
-============================================================
+## COMPLETION DE COMPTE (crud_complete_account)
 
 POST /complete-account
-GET  /
-PUT  /
 
 ============================================================
-ROUTES SYSTEME
-============================================================
+## ROUTES SYSTEME
 
 To be implemented
 
 ============================================================
-AUTH HEADERS
-============================================================
+## AUTH HEADERS
 
 Toutes les routes protégées utilisent :
 
