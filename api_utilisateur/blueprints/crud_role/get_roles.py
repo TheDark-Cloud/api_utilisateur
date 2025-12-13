@@ -5,7 +5,7 @@ from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 
 get_role_bp = Blueprint("get_role", __name__)
 
-@get_role_bp.route("/roles", methods=["GET"])
+@get_role_bp.route("/role/get_role", methods=["GET"])
 @jwt_required()
 def get_roles():
     try:
