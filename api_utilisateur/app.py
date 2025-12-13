@@ -1,6 +1,7 @@
 import os
 from flask import Flask, jsonify
 
+
 from api_utilisateur.model_db import Role, Categorie
 from api_utilisateur.setting.config import db
 
@@ -16,7 +17,7 @@ from api_utilisateur.blueprints.crud_product.add_product import add_product_bp
 from api_utilisateur.blueprints.crud_product.delete_product import delete_product_bp
 from api_utilisateur.blueprints.crud_product.update_product import update_product_bp
 from api_utilisateur.blueprints.crud_product.get_product import get_product_bp
-
+from api_utilisateur.blueprints.seed import seed_bp
 from api_utilisateur.blueprints.crud_shop.add_shop import add_shop_bp
 
 from flask_jwt_extended import JWTManager
@@ -68,6 +69,7 @@ def create_app():
 
     # login
     my_app.register_blueprint(log_in_bp)
+    my_app.register_blueprint(seed_bp)
 
 
 
@@ -75,6 +77,10 @@ def create_app():
 
 # for gunicorn
 app = create_app()
+with app.app_context():
+    db.create_all()
+    # 1. Run migrations
+    upgrade()
 
 @app.route("/deployment_metrics")
 def metrics():
@@ -82,43 +88,6 @@ def metrics():
         "uptime": "OK",
         "database": "connected",
         "version": "1.0.0"}, 200
-
-
-@app.route("/migrate-seed")
-def migrate_and_seed():
-
-    try:
-        with app.app_context():
-            db.create_all()
-            # 1. Run migrations
-            upgrade()
-
-            # 2. Seed roles
-            roles = ['admin', 'vendeur', 'client', 'restaurateur', 'artisan']
-            for r in roles:
-                if not Role.query.filter_by(name_role=r).first():
-                    db.session.add(Role(name_role=r))
-
-            # product_types = [
-            #     "Electronics",
-            #     "Fashion & Apparel",
-            #     "Food & Beverages",
-            #     "Home & Furniture",
-            #     "Beauty & Personal Care"
-            # ]
-            # for c in product_types:
-            #     if not Categorie.query.filter_by(categorie_name=c).first():
-            #         db.session.add(Categorie(categorie_name=c))
-            #
-
-            db.session.commit()
-
-            return jsonify({
-                "message": "Migrations and seeding completed successfully"
-            }), 200
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 
 
