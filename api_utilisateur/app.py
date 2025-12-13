@@ -84,7 +84,7 @@ def metrics():
         "version": "1.0.0"}, 200
 
 
-@app.route("/migrate-seed", methods=["POST"])
+@app.route("/migrate-seed")
 def migrate_and_seed():
 
     try:
